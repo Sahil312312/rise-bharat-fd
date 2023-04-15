@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600&display=swap');
+.box {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-family: Inter, sans-serif;
+   
+}
+.JobCard {
+    background-color: #f8f4ff;
+    padding: 10px;
+}
+.job-content {
+    font-weight: 600;
+}
+
+
+.apply-button {
+    width: 100%;
+    margin-top: 0;
+}

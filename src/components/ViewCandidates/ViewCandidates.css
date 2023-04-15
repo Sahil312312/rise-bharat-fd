@@ -1,0 +1,39 @@
+.select-all{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 15px 20px 10px;
+    font-family: Inter, sans-serif;
+}
+.candidate-name{
+    font-weight: 600;
+}
+.view-candidate-download{
+    width: 100%;
+    margin-top: 0px;
+    line-height: 1.5;
+    margin-left: 5px;
+}
+
+.select-all {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 15px 20px 10px;
+    font-family: Inter, sans-serif;
+  }
+  .client-name {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .candidate-name {
+    font-weight: 600;
+  }
+  .resume {
+    color: #321c61;
+    font-weight: 600;
+    text-underline-position: under;
+  }
+  
