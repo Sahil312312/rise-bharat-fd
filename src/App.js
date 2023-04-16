@@ -1,5 +1,5 @@
 import './App.css';
-import OTP from './components/Signup/OTP';
+import OTP from './components/Auth/Signup/OTP';
 import Signup from './components/Auth/Signup/Signup';
 import Home from './components/Home/Home';
 import CreateCommunity from './components/CreateCommunity/CreateCommunity';
@@ -21,14 +21,14 @@ function App() {
       {/* <Home/> */}
       {/* <CreateCommunity/> */}
       {/* <AllCommunities/> */}
-      {/* <JobsAlert/> */}
+      <JobsAlert/>
       {/* <HireCandidates/> */}
       {/* <HireCandidatesForm/> */}
       {/* <SelectCommunities/> */}
       {/* <HireCandidateJobs/> */}
       {/* <ViewCandidates/> */}
       {/* <RiseCommunities/> */}
-      <AvailableCommunities/>
+      {/* <AvailableCommunities/> */}
     </>
   );
 }

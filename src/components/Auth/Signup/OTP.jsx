@@ -1,5 +1,5 @@
 import './OTP.css'
-import Rise from '../CompanyName/Rise'
+import Rise from '../../CompanyName/Rise'
 import { useState, useEffect } from 'react';
 
 const OTP = () => {
