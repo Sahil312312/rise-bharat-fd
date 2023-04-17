@@ -1,35 +1,32 @@
 import React, { useState } from "react";
-import Popup from "../PopUp/Popup";
 import { Avatar } from "@mui/material";
 
 const CreateCommunity = () => {
-  const items = [{name: "Hire Candidates"},{name:"Create a new community"}]
   
-  const [avatar, setAvatar] = useState("");
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
+  // const [avatar, setAvatar] = useState("");
+  // const handleImageChange = (e) => {
+  //   const file = e.target.files[0];
 
-    const Reader = new FileReader();
-    Reader.readAsDataURL(file);
+  //   const Reader = new FileReader();
+  //   Reader.readAsDataURL(file);
 
-    Reader.onload = () => {
-      if (Reader.readyState === 2) {
-        setAvatar(Reader.result);
-      }
-    };
-  };
+  //   Reader.onload = () => {
+  //     if (Reader.readyState === 2) {
+  //       setAvatar(Reader.result);
+  //     }
+  //   };
+  // };
   return (
     <>
       <div className="top-heading">Create New Community</div>
       <form>
-      <Avatar src={avatar} alt="User"sx={{ height: "10vmax", width: "10vmax" }} />
-        <input type="file" accept="image/*" onChange={handleImageChange} style={{marginLeft:"55px",paddingTop:"20px",paddingBottom:"10px"}}/>
+      {/* <Avatar src={avatar} alt="User"sx={{ height: "10vmax", width: "10vmax" }} /> */}
+        {/* <input type="file" accept="image/*" onChange={handleImageChange} style={{marginLeft:"55px",paddingTop:"20px",paddingBottom:"10px"}}/> */}
         <input type="text" placeholder="Enter Group Name" />
         <button type="submit" className="btn-1">
           Create
         </button>
       </form>
-      <Popup items={items}/>
     </>
   );
 };

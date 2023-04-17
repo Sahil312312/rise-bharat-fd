@@ -9,14 +9,14 @@ import Tooltip from "@mui/material/Tooltip";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 
 export default function AccountMenu(props) {
-  const {items} = props;
+  const {items,onClickCreate} = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
-    setAnchorEl(null);
+    
   };
   return (
     <>
@@ -92,8 +92,10 @@ export default function AccountMenu(props) {
         anchorOrigin={{ horizontal: "left", vertical: "top" }}
       >
         {items.map((item) => (
-              <MenuItem onClick={handleClose} key={Math.random()}>
-                {item.name}
+              <MenuItem onClick={()=>{setAnchorEl(null); item.onClickCreate();}} key={Math.random()}>
+
+                {item && item?.name}
+
               <ListItemIcon style={{ marginLeft: 8 }}>
                 <ArrowRightAltIcon fontSize="medium" />
               </ListItemIcon>

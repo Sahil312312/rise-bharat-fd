@@ -10,7 +10,7 @@ form {
 }
 
 input[type="text"],
-input[type="number"] {
+input[type="number"],input[type="password"],select {
   width: 90%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -21,12 +21,12 @@ input[type="number"] {
 }
 
 input[type="text"]:focus,
-[type="number"]:focus {
+[type="number"]:focus,input[type="password"] {
   outline: none;
 }
 
 input[type="text"]::placeholder,
-input[type="number"]::placeholder {
+input[type="number"]::placeholder,input[type="password"]::placeholder,select::placeholder {
   color: #a699c3;
   opacity: 1;
 }
