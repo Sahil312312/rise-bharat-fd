@@ -20,7 +20,7 @@ import axios from 'axios';
 import { baseUrl } from '.';
 
 function App() {
-  const {setIsAuthenticated,setUser} = useContext(Context);
+  const {isAuthenticated,setIsAuthenticated,setUser,setMyCommunities} = useContext(Context);
   
   useEffect(() => {
     axios.get(`${baseUrl}/v1/user/me`,{
@@ -35,24 +35,38 @@ function App() {
     })
   },[]);
 
+  useEffect(() => {
+    
+    axios.get(`${baseUrl}/v1/community/my-community`,{
+      withCredentials: true
+    }).then(res => {
+        setMyCommunities(res.data.data);
+      })
+        .catch(err => {
+          console.error(err.response.data.errors);
+    })
+  }, [])
+
+ 
+
   return (
     <>
     <Router>
       <Routes>
-        <Route path="/" element={<Home/>}/> {/* my communities */}
+        <Route path="/" element={isAuthenticated ? <Home/>:<Login/>}/> 
         <Route path="/register" element={<Signup/>}/>
         <Route path="/login" element={<Login/>}/>
-        <Route path="/create-community" element={<CreateCommunity/>}/>
-        <Route path="/all-communities" element={<AllCommunities/>}/>
-        <Route path="/jobs-alert" element={<JobsAlert/>}/>
-        <Route path="/hire-candidates" element={<HireCandidates/>}/>
-        <Route path="/hire-candidates-form" element={<HireCandidatesForm/>}/>
-        <Route path="/select-communities" element={<SelectCommunities/>}/>
-        <Route path="/hire-candidate-jobs" element={<HireCandidateJobs/>}/>
-        <Route path="/view-candidates" element={<ViewCandidates/>}/>
-        <Route path="/rise-communities" element={<RiseCommunities/>}/>
-        <Route path="/available-communities" element={<AvailableCommunities/>}/>
-      </Routes>
+        <Route path="/create-community" element={isAuthenticated ? <CreateCommunity/> : <Login/>}/>
+        <Route path="/all-communities" element={isAuthenticated ? <AllCommunities/> : <Login/>}/>
+        <Route path="/jobs-alert" element={isAuthenticated ? <JobsAlert/> : <Login/>}/>
+        <Route path="/hire-candidates" element={isAuthenticated ? <HireCandidates/> : <Login/>}/>
+        <Route path="/hire-candidates-form" element={isAuthenticated ? <HireCandidatesForm/> : <Login/>}/>
+        <Route path="/select-communities" element={isAuthenticated ? <SelectCommunities/> : <Login/>}/>
+        <Route path="/hire-candidate-jobs" element={isAuthenticated ? <HireCandidateJobs/> : <Login/>}/>
+        <Route path="/view-candidates" element={isAuthenticated ? <ViewCandidates/> : <Login/>}/>
+        <Route path="/rise-communities" element={isAuthenticated ? <RiseCommunities/> : <Login/>}/>
+        <Route path="/available-communities" element={isAuthenticated ? <AvailableCommunities/> : <Login/>}/>
+      </Routes> 
       <Toaster/>
     </Router>
     </>

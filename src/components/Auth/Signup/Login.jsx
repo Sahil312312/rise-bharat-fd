@@ -5,7 +5,7 @@ import Context from '../../../store/AuthContext';
 import { toast } from 'react-hot-toast';
 import { baseUrl } from '../../..';
 import axios from 'axios';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 const Login = () => {
     const [number, setNumber] = useState('');
@@ -30,7 +30,7 @@ const Login = () => {
           toast.success(`Hello ${data.data.full_name}`);
         } catch (error) {
           setIsAuthenticated(false);
-          toast.error("Something went wrong");
+          toast.error(error.response.data.message);
           console.log(error);
         }
     }
@@ -46,7 +46,7 @@ const Login = () => {
             <input type="password" placeholder="Enter Password" required onChange={(e)=>{setPassword(e.target.value)}}/>
             <button type="submit" className="btn-1"> Login </button>
         </form>
-        
+            <Link to="/register" style={{marginLeft:175,paddingTop:30}}>Signup</Link>
     </>
   )
 }
