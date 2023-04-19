@@ -16,6 +16,7 @@ const HireCandidatesForm = () => {
   const [experience, setExperience] = useState('');
   const [noOfOpenings, setNoOfOpenings] = useState('');
   const [jobDescription, setJobDescription] = useState('');
+  const [jobId, setJobId] = useState('');
 
   const {setJobData} = useContext(Context);
   const navigate = useNavigate();
@@ -38,7 +39,8 @@ const HireCandidatesForm = () => {
       console.log(data.data);
       setJobData(data.data);
       toast.success("Job Created Successfully");
-      navigate("/select-communities");
+      const jobId = data.data._id;
+      navigate(`/select-communities/${jobId}`);
     } catch (error) {
       toast.error(error.response.data.errors);
       console.log(error.response.data.errors);

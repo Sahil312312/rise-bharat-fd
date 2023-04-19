@@ -11,17 +11,17 @@ const Home = () => {
   const {mycommunities ,setMyCommunities} = useContext(Context);
 
   let navigate = useNavigate();
-  // useEffect(() => {
+  useEffect(() => {
     
-  //   axios.get(`${baseUrl}/v1/community/my-community`,{
-  //     withCredentials: true
-  //   }).then(res => {
-  //       setMyCommunities(res.data.data);
-  //     })
-  //       .catch(err => {
-  //         toast.error(err.response.data.errors);
-  //   })
-  // }, [])
+    axios.get(`${baseUrl}/v1/community/my-community`,{
+      withCredentials: true
+    }).then(res => {
+        setMyCommunities(res.data.data);
+      })
+        .catch(err => {
+          toast.error(err.response.data.errors);
+    })
+  }, [])
   
 
   const hireCandidateHandler = () => {
@@ -36,7 +36,7 @@ const Home = () => {
       <div className="top-heading">Rise Communities</div>
         {mycommunities.length > 0 ? mycommunities.map((community) => {
           return (
-            <OneCommunity key={community._id} name={community.name} />
+            <OneCommunity key={community._id} name={community.name} link={"View -->"} id={community._id}/>
           )
         }) : <div className="no-community">No Community Found</div>
         }

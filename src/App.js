@@ -18,6 +18,7 @@ import { useContext, useEffect } from 'react';
 import Context from './store/AuthContext';
 import axios from 'axios';
 import { baseUrl } from '.';
+import NotFound from './components/NotFound/NotFound';
 
 function App() {
   const {isAuthenticated,setIsAuthenticated,setUser,setMyCommunities} = useContext(Context);
@@ -43,6 +44,7 @@ function App() {
         setMyCommunities(res.data.data);
       })
         .catch(err => {
+          setIsAuthenticated(false);
           console.error(err.response.data.errors);
     })
   }, [])
@@ -53,19 +55,20 @@ function App() {
     <>
     <Router>
       <Routes>
-        <Route path="/" element={isAuthenticated ? <Home/>:<Login/>}/> 
-        <Route path="/register" element={<Signup/>}/>
         <Route path="/login" element={<Login/>}/>
+        <Route path="/register" element={<Signup/>}/>
+        <Route path="/" element={isAuthenticated ? <Home/>:<Login/>}/> 
         <Route path="/create-community" element={isAuthenticated ? <CreateCommunity/> : <Login/>}/>
         <Route path="/all-communities" element={isAuthenticated ? <AllCommunities/> : <Login/>}/>
-        <Route path="/jobs-alert" element={isAuthenticated ? <JobsAlert/> : <Login/>}/>
+        <Route path="/community/:id" element={isAuthenticated ? <JobsAlert/> : <Login/>}/>
         <Route path="/hire-candidates" element={isAuthenticated ? <HireCandidates/> : <Login/>}/>
         <Route path="/hire-candidates-form" element={isAuthenticated ? <HireCandidatesForm/> : <Login/>}/>
-        <Route path="/select-communities" element={isAuthenticated ? <SelectCommunities/> : <Login/>}/>
+        <Route path="/select-communities/:jobId" element={isAuthenticated ? <SelectCommunities/> : <Login/>}/>
         <Route path="/hire-candidate-jobs" element={isAuthenticated ? <HireCandidateJobs/> : <Login/>}/>
         <Route path="/view-candidates" element={isAuthenticated ? <ViewCandidates/> : <Login/>}/>
         <Route path="/rise-communities" element={isAuthenticated ? <RiseCommunities/> : <Login/>}/>
         <Route path="/available-communities" element={isAuthenticated ? <AvailableCommunities/> : <Login/>}/>
+        <Route path="*" element={<NotFound/>}/>
       </Routes> 
       <Toaster/>
     </Router>
