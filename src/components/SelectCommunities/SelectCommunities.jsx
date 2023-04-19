@@ -24,7 +24,6 @@ const SelectCommunities = () => {
   
   const postJobHandler = async() => {
     try {
-      console.log(selectedCommunities);
      const {data} =  await axios.post(`${baseUrl}/v1/job/share-post/${jobId}`,{
         communities: selectedCommunities
       },{

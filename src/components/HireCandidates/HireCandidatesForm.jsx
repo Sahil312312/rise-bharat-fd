@@ -36,14 +36,12 @@ const HireCandidatesForm = () => {
       },{
         withCredentials: true
       });
-      console.log(data.data);
       setJobData(data.data);
       toast.success("Job Created Successfully");
       const jobId = data.data._id;
       navigate(`/select-communities/${jobId}`);
     } catch (error) {
       toast.error(error.response.data.errors);
-      console.log(error.response.data.errors);
     }
   }
   return (

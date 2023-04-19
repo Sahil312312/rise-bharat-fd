@@ -25,13 +25,11 @@ const Login = () => {
             },
             withCredentials: true,
           });
-          console.log(data);
           setIsAuthenticated(true);
           toast.success(`Hello ${data.data.full_name}`);
         } catch (error) {
           setIsAuthenticated(false);
           toast.error(error.response.data.message);
-          console.log(error);
         }
     }
     if(isAuthenticated){

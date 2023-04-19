@@ -26,7 +26,6 @@ const JobsAlert = () => {
       .catch((error) => {
         setIsAuthenticated(false);
         toast.error(error.response.data.errors);
-        console.log(error.response.data.errors);
       });
   }, []);
 
@@ -36,12 +35,10 @@ const JobsAlert = () => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res.data.data);
         setJobData(res.data.data);
       })
       .catch((error) => {
         toast.error(error.response.data.errors);
-        console.log(error.response.data.errors);
       });
   }, []);
 

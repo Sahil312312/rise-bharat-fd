@@ -9,7 +9,7 @@ import Tooltip from "@mui/material/Tooltip";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 
 export default function AccountMenu(props) {
-  const {items,onClickCreate} = props;
+  const {items} = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
