@@ -6,9 +6,11 @@ import JobsAlert from '../JobsAlert/JobsAlert';
 const OneCommunity = (props) => {
   const {id} = props;
   const navigate = useNavigate();
+
   const clickHandler = () => {
     navigate(`/community/${id}`)
   }
+  
   return (
     <>
         <div className="community"  onClick={clickHandler} >
