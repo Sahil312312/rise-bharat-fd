@@ -35,6 +35,7 @@ const JobsAlert = () => {
         withCredentials: true,
       })
       .then((res) => {
+        console.log(res.data.data);
         setJobData(res.data.data);
       })
       .catch((error) => {
@@ -63,6 +64,7 @@ const JobsAlert = () => {
         return (
           item.job && <JobCard key={item._id} company={item.job.company} role={item.job.job_role}
           experience={item.job.experience} salary={item.job.salary} location={item.job.location}
+          jobId={item.job._id}
           />
         )
       }) : <div className="no-job-alert">No Job Alert</div>}
