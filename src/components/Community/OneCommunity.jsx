@@ -1,23 +1,44 @@
 import './OneCommunity.css'
 import logo from '../../assets/logo.png'
 import { useNavigate } from 'react-router-dom';
-import JobsAlert from '../JobsAlert/JobsAlert';
+import { baseUrl } from '../..';
+import axios from 'axios';
 
 const OneCommunity = (props) => {
   const {id} = props;
   const navigate = useNavigate();
 
-  const clickHandler = () => {
+  const clickViewHandler = () => {
+    console.log(id)
     navigate(`/community/${id}`)
   }
+
+  const joinCommunity = async () => {
+    await axios
+      .post(`${baseUrl}/v1/community/join-community/${id}`, {}, { withCredentials: true })
+      .then((response) => {
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const clicKJoinHandler = () => {
+    {
+        joinCommunity();
+    }
+
+  };
   
   return (
     <>
-        <div className="community"  onClick={clickHandler} >
+        <div className="community"  >
             <div className="group-img"><img src={logo} alt="" /></div>
             <div className="group-details">
                 <div className="group-name">{props?.name}</div>
-                <div className="view-all" style={{color:'#7A3EFB'}}>{props?.link} </div>
+                {props.link === "View -->" ? (<div className="group-link" onClick={clickViewHandler}>{props.link}</div>) : 
+                (<div className="group-link" onClick={clicKJoinHandler}>{props.link}</div>)}
             </div>
         </div>
     </>
