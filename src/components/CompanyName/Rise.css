@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap");
+
+.signup-heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 20vh;
+}
+.company-name {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 70px;
+  line-height: 120%;
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.02em;
+  color: #000000;
+  margin-left: 10px;
+}
+.sub-heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -5px;
+}
+
+.sub-heading > p {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 23.2653px;
+  line-height: 120%;
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.02em;
+  color: #000000;
+}

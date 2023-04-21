@@ -1,0 +1,10 @@
+.post-job{
+    height: 75vh;
+    overflow: scroll;
+}
+
+.post-job-button{
+    position: fixed;
+    bottom: 40px;
+    left: 20px;
+}

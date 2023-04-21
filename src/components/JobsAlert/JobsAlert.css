@@ -1,0 +1,35 @@
+.group-heading {
+  display: flex;
+  background-color: #5731a7;
+  color: white;
+  font-family: Inter, sans-serif;
+  justify-content: space-between;
+  padding: 12px;
+}
+.left-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+.right-group-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.right-group-top-heading {
+  font-weight: 600;
+  font-size: 21px;
+}
+.right-group-sub-heading {
+  color: #dcccff;
+}
+.job-alert {
+  font-family: Inter, sans-serif;
+  height: 29px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 25px;
+}

@@ -1,0 +1,14 @@
+.EachCommunity {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  font-family: Inter, sans-serif;
+  width: 90vw;
+  font-weight: 600;
+  margin-top: 20px;
+  font-size: 18px;
+}
+.community-center{
+    margin-right: 50px;
+}
