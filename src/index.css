@@ -91,3 +91,41 @@ textarea{
   text-align: left;
   width: 90vw;
 }
+.signup-para{
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  margin-left: 20px;
+  padding: 5px;
+  text-align: left;
+  width: 90vw;
+}
+.signup-btn{
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  margin-left: 20px;
+  padding: 5px;
+  text-align: left;
+  width: 90vw;
+  color: #321c61;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  text-decoration: none;
+}
+.signup-btn:hover{
+  color: #321c61;
+}
+
+.no-job-alert{
+  font-family: Inter, sans-serif;
+  font-size: 24px;
+  font-weight: 200;
+  text-align: center;
+  margin: 60% auto;
+}

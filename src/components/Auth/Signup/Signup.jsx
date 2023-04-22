@@ -4,9 +4,10 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { baseUrl } from "../../../index";
 import Context from "../../../store/AuthContext";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import {signupSchema} from "../../../assets/schemas/index"
+import Loader from "../../Loader/Loader";
 
 const initialValues = {
   full_name: "",
@@ -16,12 +17,14 @@ const initialValues = {
 }
 
 const Signup = () => {
+  const {loading,setLoading} = useContext(Context)
   let navigate = useNavigate();
   const {values , errors , touched, handleChange,handleSubmit,handleBlur} = useFormik({
     initialValues: initialValues,
     validationSchema: signupSchema,
     onSubmit:  async(values,action) => {
       try {
+        setLoading(true);
         const { data } = await axios.post(
           `${baseUrl}/v1/auth/signup`, values,
           {
@@ -31,9 +34,11 @@ const Signup = () => {
             withCredentials: true,
           }
         );
-        toast.success("Registered Successfully");
+        setLoading(false);
+        toast.success("Registered Successfully now Login to continue");
         navigate("/login ");
       } catch (error) {
+        setLoading(false);
         toast.error(error.response.data.errors);
         console.log(error);
       }
@@ -42,51 +47,13 @@ const Signup = () => {
 
   });
 
-  // const [name, setName] = useState("");
-  // const [phone, setPhone] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [role, setRole] = useState("Applicant");
-  
-  const { isAuthenticated, setIsAuthenticated } = useContext(Context);
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
 
-  //   try {
-  //     const { data } = await axios.post(
-  //       `${baseUrl}/v1/auth/signup`,
-  //       {
-  //         full_name: name,
-  //         phone: phone,
-  //         password: password,
-  //         role: role,
-  //       },
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         withCredentials: true,
-  //       }
-  //     );
-  //     setName("");
-  //     setPhone("");
-  //     setPassword("");
-  //     toast.success("Registered Successfully");
-  //     setIsAuthenticated(true);
-  //   } catch (error) {
-  //     toast.error(error.response.data.errors);
-  //     console.log(error);
-  //   }
-  // };
-
-  //  if(isAuthenticated){
-  //   return <Navigate to={"/login"} />
-  // }
-  
 
   
 
   return (
+    loading ? <Loader/> : 
     <>
       <Rise />
       <form onSubmit={handleSubmit}>

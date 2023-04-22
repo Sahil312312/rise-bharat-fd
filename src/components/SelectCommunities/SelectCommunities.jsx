@@ -6,10 +6,11 @@ import { baseUrl } from "../..";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
+import Loader from "../Loader/Loader";
 
 const SelectCommunities = () => {
   const { jobId } = useParams();
-  const {mycommunities,setMyCommunities,user} = useContext(Context);
+  const {mycommunities,setMyCommunities,user,loading,setLoading} = useContext(Context);
   const [selectedCommunities, setSelectedCommunities] = useState([]);
   let navigate = useNavigate();
 
@@ -24,14 +25,17 @@ const SelectCommunities = () => {
   
   const postJobHandler = async() => {
     try {
+     setLoading(true); 
      const {data} =  await axios.post(`${baseUrl}/v1/job/share-post/${jobId}`,{
         communities: selectedCommunities
       },{
         withCredentials: true,
       });
       toast.success("Job Posted");
+      setLoading(false);
       navigate("/");
     } catch (error) {
+      setLoading(false);
       toast.error(error.response.data.errors);
       console.error(error.response.data.errors);
     }
@@ -40,18 +44,21 @@ const SelectCommunities = () => {
   };
 
   useEffect(() => {
-    
+    setLoading(true);
     axios.get(`${baseUrl}/v1/community/my-community`,{
       withCredentials: true
     }).then(res => {
+        setLoading(false);
         setMyCommunities(res.data.data);
       })
         .catch(err => {
+          setLoading(false);
           console.error(err.response.data.errors);
     })
   }, [])
 
   return (
+    loading ? <Loader/> :
     <>
       <div className="top-heading">SelectCommunities</div>
 

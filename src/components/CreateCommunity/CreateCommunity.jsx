@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Avatar } from "@mui/material";
 import axios from "axios";
 import { baseUrl } from "../../index";
@@ -6,6 +6,8 @@ import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import {createCommunitySchema} from "../../assets/schemas/index"
+import Loader from "../Loader/Loader";
+import Context from "../../store/AuthContext";
 
 const initialValues = {
   name: ""
@@ -13,11 +15,13 @@ const initialValues = {
 
 const CreateCommunity = () => {
   let navigate = useNavigate();
+  const {loading,setLoading} = useContext(Context)
 
   const {values , errors , touched, handleChange,handleSubmit,handleBlur} = useFormik({
     initialValues: initialValues,
      validationSchema: createCommunitySchema,
      onSubmit:  async(values,action) => {
+      setLoading(true);
       try {
         const { data } = await axios.post(`${baseUrl}/v1/community`, values, {
           headers: {
@@ -25,9 +29,11 @@ const CreateCommunity = () => {
           },
           withCredentials: true,
         });
+        setLoading(false);
         toast.success("Community Created");
         navigate("/")
       } catch (error) {
+        setLoading(false);
         toast.error(error.response.data.errors);
       }
        action.resetForm();
@@ -71,6 +77,7 @@ const CreateCommunity = () => {
   // }
 
   return (
+    loading ? <Loader/> :
     <>
       <div className="top-heading">Create New Community</div>
       <form onSubmit={handleSubmit}>
