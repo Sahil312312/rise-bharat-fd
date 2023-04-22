@@ -25,6 +25,7 @@ import {  baseUrl } from "../../index";
 import axios from "axios";
 import "../Community/OneCommunity.css";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { toast } from "react-hot-toast";
 
 const AvailableCommunities = () => {
   const URL = `${baseUrl}/v1/community`;
@@ -35,10 +36,14 @@ const AvailableCommunities = () => {
     axios
       .get(URL, { withCredentials: true })
       .then((response) => {
-        console.log(response.data.data);
         setavailableCommunities(response.data.data);
+        setTimeout(() => {
+          toast.success("Available communities loaded");
+          navigate("/");
+        }, 1000);
       })
       .catch((err) => {
+        toast.error(err.response.data.message)
         console.log(err);
       });
   }, []);
@@ -64,9 +69,7 @@ const AvailableCommunities = () => {
           );
         })
       ) : (
-        <div>
-          <h1>There are no companies to join</h1>
-        </div>
+        <div className="no-community">There are no companies to join</div>
       )}
 
       <Popup items={items} />

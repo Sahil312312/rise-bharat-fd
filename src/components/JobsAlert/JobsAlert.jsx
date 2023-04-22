@@ -8,10 +8,11 @@ import axios from "axios";
 import { baseUrl } from "../..";
 import { toast } from "react-hot-toast";
 import Context from "../../store/AuthContext";
+import SmallerLoader from "../Loader/SmallerLoader";
 
 const JobsAlert = () => {
   const { id } = useParams();
-  const [communityName, setCommunityName] = useState("Rise Community");
+  const [communityName, setCommunityName] = useState(<SmallerLoader/>);
   const [jobData, setJobData] = useState([]);
   const {setIsAuthenticated} = useContext(Context);
 
@@ -35,7 +36,6 @@ const JobsAlert = () => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res.data.data);
         setJobData(res.data.data);
       })
       .catch((error) => {
@@ -67,7 +67,7 @@ const JobsAlert = () => {
           jobId={item.job._id}
           />
         )
-      }) : <div className="no-job-alert">No Job Alert</div>}
+      }) : <div className="no-job-alert">No Job Available</div>}
     </>
   );
 };

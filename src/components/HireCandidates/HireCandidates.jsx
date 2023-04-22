@@ -1,12 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import './HireCandidates.css'
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { baseUrl } from '../..';
 import { toast } from 'react-hot-toast';
 import JobCard from '../JobCard/JobCard';
+import Context from '../../store/AuthContext';
+import Loader from '../Loader/Loader';
 
 const HireCandidates = () => {
+  const {loading,setLoading} = useContext(Context);
   const [jobs, setJobs] = useState([]);
   const navigate = useNavigate();
   const createJobHandler = () => {
@@ -14,16 +17,20 @@ const HireCandidates = () => {
   }
 
   useEffect(() => {
+    setLoading(true);
     axios.get(`${baseUrl}/v1/job/my-job-posts`,{
       withCredentials: true
     }).then(res => {
+      setLoading(false);
       setJobs(res.data.data);
     }).catch((error) => {
+      setLoading(false);
       toast.error(error.response.data.message);
     });
   }, [])
 
   return (
+    loading ? <Loader/> :
     <>
       <div className="top-heading">Hire Candidates</div>
       {jobs.length > 0 ? <>

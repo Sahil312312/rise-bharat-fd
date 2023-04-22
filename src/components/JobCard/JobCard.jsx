@@ -10,7 +10,6 @@ const JobCard = (props) => {
     try {
       const {data} = await axios.post(`${baseUrl}/v1/job/apply-job/${jobId}`,{}, {withCredentials: true})
       toast.success("Applied Successfully");  
-      console.log(data.data);    
     } catch (error) {
       console.log(error.response.data.errors);
       toast.error(error.response.data.errors);

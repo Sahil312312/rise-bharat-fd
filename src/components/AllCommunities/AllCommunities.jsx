@@ -9,15 +9,11 @@ const AllCommunities = () => {
   const URL = `${baseUrl}/v1/community/join-communities`;
   const [joinedCommunities, setjoinedCommunities] = useState([]);
   const navigate = useNavigate();
-  const clickHandlerJoin = () => {
-    console.log("sahil");
-  };
 
   useEffect(() => {
     axios
       .get(URL, { withCredentials: true })
       .then((response) => {
-        console.log(response.data.data);
         setjoinedCommunities(response.data.data);
       })
       .catch((error) => {

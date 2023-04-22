@@ -6,50 +6,70 @@ import { baseUrl } from '../..';
 import Context from '../../store/AuthContext';
 import { toast } from 'react-hot-toast';
 import OneCommunity from '../Community/OneCommunity';
+import Loader from '../Loader/Loader';
 
 const Home = () => {
-  const {setIsAuthenticated,setUser,setMyCommunities,mycommunities,user} = useContext(Context);
+  const {setIsAuthenticated,setUser,setMyCommunities,mycommunities,user,loading,setLoading} = useContext(Context);
   const [joinedCommunities, setjoinedCommunities] = useState([]);
   let navigate = useNavigate();
 
   useEffect(() => {
-    
-    user.role === "Recruiter" ? axios.get(`${baseUrl}/v1/community/my-community`,{
-      withCredentials: true
-    }).then(res => {
-      console.log("Recruiter");
-      setMyCommunities(res.data.data);
-    })
-    .catch(err => {
-      toast.error(err.response.data.errors);
-    }) : 
-
-    axios
-      .get(`${baseUrl}/v1/community/join-communities`, { withCredentials: true })
-      .then((response) => {
-        console.log("Applicant");
-        console.log(response.data.data);
-        setMyCommunities(response.data.data);
-      })
-      .catch((error) => {
-        toast.error(error.response.data.errors);
-        console.log(error);
-      });
-
-  }, [])
-
-  useEffect(() => {
+    setLoading(true);
     axios.get(`${baseUrl}/v1/user/me`,{
       withCredentials: true
     }).then(res => {
         setUser(res.data.data);
         setIsAuthenticated(true) 
+        setLoading(false);
       })
         .catch(err => {
         setUser({});
+        setLoading(false);
         setIsAuthenticated(false);
-    })
+    })     
   },[]);
+
+  
+
+  // useEffect(() => {
+    
+  //   user.role === "Recruiter" ?  : 
+
+    
+
+  // }, [])
+
+  useEffect(() => {
+    setLoading(true);
+    axios.get(`${baseUrl}/v1/community/my-community`,{
+      withCredentials: true
+    }).then(res => {
+      console.log("Recruiter");
+      setLoading(false);
+      setMyCommunities(res.data.data);
+    })
+    .catch(err => {
+      setLoading(false);
+      toast.error(err.response.data.errors);
+    })
+  },[])
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(`${baseUrl}/v1/community/join-communities`, { withCredentials: true })
+      .then((response) => {
+        console.log("Applicant");
+        setMyCommunities(response.data.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.log(error);
+      });
+  },[])
+
+
 
 
 
@@ -67,9 +87,9 @@ const Home = () => {
   const items = user.role === "Recruiter" ? [{name: "Hire Candidates",onClickCreate:hireCandidateHandler},{name:"Create a new community",onClickCreate:createCommunityHandler}] :
                                             [{name: "Join a new community",onClickCreate:joinCommunityHandler}];
   return (
+    loading ? <Loader/> :
     <>
       <div className="top-heading">Rise Communities</div>
-      {console.log(mycommunities)}
         {mycommunities.length > 0 ? mycommunities.map((community) => {
           return  <OneCommunity key={community?._id} name={community?.name} link={"View -->"} id={community?._id}/>
         }) : <div className="no-community">No Community Found</div>

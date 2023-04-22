@@ -7,6 +7,7 @@ import Context from '../../store/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from "formik";
 import {createJobSchema} from "../../assets/schemas/index"
+import Loader from '../Loader/Loader';
 
 const initialValues = {
   job_role: "",
@@ -21,13 +22,14 @@ const initialValues = {
 
 
 const HireCandidatesForm = () => {
-  const {setJobData} = useContext(Context);
+  const {setJobData,loading,setLoading} = useContext(Context);
   const navigate = useNavigate();
   
   const {values , errors , touched, handleChange,handleSubmit,handleBlur} = useFormik({
      initialValues: initialValues,
      validationSchema: createJobSchema,
      onSubmit:  async(values,action) => {
+      setLoading(true);
       try {
         const {data} = await axios.post(`${baseUrl}/v1/job`, values,{
          withCredentials: true
@@ -35,8 +37,10 @@ const HireCandidatesForm = () => {
        setJobData(data.data);
        toast.success("Job Created Successfully");
        const jobId = data.data._id;
+        setLoading(false);
        navigate(`/select-communities/${jobId}`);
      } catch (error) {
+        setLoading(false);
        toast.error(error.response.data.errors);
      }
        action.resetForm();
@@ -44,45 +48,8 @@ const HireCandidatesForm = () => {
 
  });
 
-
-  // const [jobRole, setJobRole] = useState('');
-  // const [company, setCompany] = useState('');
-  // const [salary, setSalary] = useState('');
-  // const [location, setLocation] = useState('');
-
-  // const [education, setEducation] = useState('');
-  // const [experience, setExperience] = useState('');
-  // const [noOfOpenings, setNoOfOpenings] = useState('');
-  // const [jobDescription, setJobDescription] = useState('');
-  // const [jobId, setJobId] = useState('');
-
- 
-
-  // const submitHandler = async(e) => {
-  //   e.preventDefault();
-  //   try {
-  //      const {data} = await axios.post(`${baseUrl}/v1/job`, {
-  //       job_role: jobRole,
-  //       salary: salary,
-  //       company: company,
-  //       location: location,
-  //       educational_qualification: education,
-  //       experience: experience,
-  //       job_description: jobDescription,
-  //       number_of_openings: noOfOpenings,
-  //     },{
-  //       withCredentials: true
-  //     });
-  //     setJobData(data.data);
-  //     toast.success("Job Created Successfully");
-  //     const jobId = data.data._id;
-  //     navigate(`/select-communities/${jobId}`);
-  //   } catch (error) {
-  //     toast.error(error.response.data.errors);
-  //   }
-  // }
-  
   return (
+    loading ? <Loader/> :
     <>
       <div className="top-heading">Hire Candidates</div>
         <div className="form-heading">Enter details</div>

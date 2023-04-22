@@ -9,7 +9,6 @@ const OneCommunity = (props) => {
   const navigate = useNavigate();
 
   const clickViewHandler = () => {
-    console.log(id)
     navigate(`/community/${id}`)
   }
 

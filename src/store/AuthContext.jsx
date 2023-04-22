@@ -8,9 +8,9 @@ export const AuthContext = (props) => {
   const [user, setUser] = useState({});
   const [mycommunities, setMyCommunities] = useState([]);
   const [jobData, setJobData] = useState([]);
-
+  const [loading, setLoading] = useState(false);
   return (
-    <Context.Provider value={{isAuthenticated,setIsAuthenticated,user,setUser,mycommunities, setMyCommunities,jobData, setJobData}}>{props.children}</Context.Provider>
+    <Context.Provider value={{isAuthenticated,setIsAuthenticated,user,setUser,mycommunities, setMyCommunities,jobData, setJobData,loading, setLoading}}>{props.children}</Context.Provider>
   )
 }
 
