@@ -35,7 +35,6 @@ const JobsAlert = () => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res.data.data);
         setJobData(res.data.data);
       })
       .catch((error) => {

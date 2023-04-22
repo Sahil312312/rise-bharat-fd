@@ -35,7 +35,6 @@ const AvailableCommunities = () => {
     axios
       .get(URL, { withCredentials: true })
       .then((response) => {
-        console.log(response.data.data);
         setavailableCommunities(response.data.data);
       })
       .catch((err) => {

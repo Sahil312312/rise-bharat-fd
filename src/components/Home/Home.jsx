@@ -28,7 +28,6 @@ const Home = () => {
       .get(`${baseUrl}/v1/community/join-communities`, { withCredentials: true })
       .then((response) => {
         console.log("Applicant");
-        console.log(response.data.data);
         setMyCommunities(response.data.data);
       })
       .catch((error) => {
@@ -69,7 +68,6 @@ const Home = () => {
   return (
     <>
       <div className="top-heading">Rise Communities</div>
-      {console.log(mycommunities)}
         {mycommunities.length > 0 ? mycommunities.map((community) => {
           return  <OneCommunity key={community?._id} name={community?.name} link={"View -->"} id={community?._id}/>
         }) : <div className="no-community">No Community Found</div>
