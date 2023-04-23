@@ -26,21 +26,19 @@ import axios from "axios";
 import "../Community/OneCommunity.css";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { toast } from "react-hot-toast";
+import Loader from "../Loader/Loader";
 
 const AvailableCommunities = () => {
-  const URL = `${baseUrl}/v1/community`;
-  const navigate = useNavigate();
   const [availableCommunities, setavailableCommunities] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get(URL, { withCredentials: true })
+      .get(`${baseUrl}/v1/community`, { withCredentials: true })
       .then((response) => {
         setavailableCommunities(response.data.data);
-        setTimeout(() => {
-          toast.success("Available communities loaded");
-          navigate("/");
-        }, 1000);
+        toast.success("Available communities loaded");
       })
       .catch((err) => {
         toast.error(err.response.data.message)
@@ -48,14 +46,16 @@ const AvailableCommunities = () => {
       });
   }, []);
 
-  const back = () => {
-    navigate(-1);
-  };
 
-  const items = [{}];
+
+  const logoutHandler = () => {
+    console.log("logout");
+  }
+
+  const items = [{name: "Logout",onClickCreate:logoutHandler}];
   return (
+    loading ? <Loader/> :
     <>
-      <ArrowBackIcon onClick={back} />
       <div className="top-heading">Available Communities</div>
       {availableCommunities.length > 0 ? (
         availableCommunities.map((community) => {
@@ -69,7 +69,7 @@ const AvailableCommunities = () => {
           );
         })
       ) : (
-        <div className="no-community">There are no companies to join</div>
+        <div className="no-community">There are no communities to join</div>
       )}
 
       <Popup items={items} />
