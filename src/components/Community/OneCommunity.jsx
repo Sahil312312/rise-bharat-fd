@@ -3,6 +3,7 @@ import logo from '../../assets/logo.png'
 import { useNavigate } from 'react-router-dom';
 import { baseUrl } from '../..';
 import axios from 'axios';
+import { toast } from 'react-hot-toast';
 
 const OneCommunity = (props) => {
   const {id} = props;
@@ -16,6 +17,7 @@ const OneCommunity = (props) => {
     await axios
       .post(`${baseUrl}/v1/community/join-community/${id}`, {}, { withCredentials: true })
       .then((response) => {
+        toast.success("Joined community successfully");
         navigate("/");
       })
       .catch((err) => {

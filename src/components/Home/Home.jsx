@@ -9,35 +9,11 @@ import OneCommunity from '../Community/OneCommunity';
 import Loader from '../Loader/Loader';
 
 const Home = () => {
-  const {setIsAuthenticated,setUser,setMyCommunities,mycommunities,user,loading,setLoading} = useContext(Context);
-  const [joinedCommunities, setjoinedCommunities] = useState([]);
+  const {setIsAuthenticated,setUser,setMyCommunities,mycommunities,user,setLoading,loading} = useContext(Context);
+  // const [loading,setLoading] = useState(false);
   let navigate = useNavigate();
 
-  useEffect(() => {
-    setLoading(true);
-    axios.get(`${baseUrl}/v1/user/me`,{
-      withCredentials: true
-    }).then(res => {
-        setUser(res.data.data);
-        setIsAuthenticated(true) 
-        setLoading(false);
-      })
-        .catch(err => {
-        setUser({});
-        setLoading(false);
-        setIsAuthenticated(false);
-    })     
-  },[]);
-
   
-
-  // useEffect(() => {
-    
-  //   user.role === "Recruiter" ?  : 
-
-    
-
-  // }, [])
 
   useEffect(() => {
     setLoading(true);
@@ -50,7 +26,7 @@ const Home = () => {
     })
     .catch(err => {
       setLoading(false);
-      toast.error(err.response.data.errors);
+      console.log(err.response.data.errors);
     })
   },[])
 
@@ -69,11 +45,19 @@ const Home = () => {
       });
   },[])
 
-
-
-
-
   
+  const logoutHandler = async () => {
+    try {
+      const {data} = await axios.get(`${baseUrl}/v1/auth/logout`, {
+        withCredentials: true,
+      });
+      toast.success("Logged out successfully");
+      setIsAuthenticated(false);
+    } catch (error) {
+      setIsAuthenticated(true);
+      toast.error(error.response.data.message);
+    }
+  };
   
   const hireCandidateHandler = () => {
     navigate("/hire-candidates");
@@ -84,8 +68,8 @@ const Home = () => {
   const joinCommunityHandler = () => {
     navigate("/available-communities");
   };
-  const items = user.role === "Recruiter" ? [{name: "Hire Candidates",onClickCreate:hireCandidateHandler},{name:"Create a new community",onClickCreate:createCommunityHandler}] :
-                                            [{name: "Join a new community",onClickCreate:joinCommunityHandler}];
+  const items = user.role === "Recruiter" ? [{name: "Hire Candidates",onClickCreate:hireCandidateHandler},{name:"Create a new community",onClickCreate:createCommunityHandler},{name: "Logout",onClickCreate:logoutHandler}] :
+                                            [{name: "Join a new community",onClickCreate:joinCommunityHandler},{name: "Logout",onClickCreate:logoutHandler}];
   return (
     loading ? <Loader/> :
     <>

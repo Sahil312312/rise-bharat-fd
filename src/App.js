@@ -21,29 +21,34 @@ import { baseUrl } from '.';
 import NotFound from './components/NotFound/NotFound';
 
 function App() {
-  const {isAuthenticated,setIsAuthenticated,setUser,setMyCommunities} = useContext(Context);
+  const {isAuthenticated,setIsAuthenticated,setUser,setMyCommunities,setLoading} = useContext(Context);
   
   useEffect(() => {
+    setLoading(true);
     axios.get(`${baseUrl}/v1/user/me`,{
       withCredentials: true
     }).then(res => {
         setUser(res.data.data);
+        setLoading(false);
         setIsAuthenticated(true) 
       })
         .catch(err => {
         setUser({});
+        setLoading(false);
         setIsAuthenticated(false);
     })
   },[]);
 
   useEffect(() => {
-    
+    setLoading(true);
     axios.get(`${baseUrl}/v1/community/my-community`,{
       withCredentials: true
     }).then(res => {
+        setLoading(false);
         setMyCommunities(res.data.data);
       })
         .catch(err => {
+          setLoading(false);
           setIsAuthenticated(false);
           console.error(err.response.data.errors);
     })
