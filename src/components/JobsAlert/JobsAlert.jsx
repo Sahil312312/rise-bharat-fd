@@ -12,9 +12,10 @@ import SmallerLoader from "../Loader/SmallerLoader";
 
 const JobsAlert = () => {
   const { id } = useParams();
+  const {setIsAuthenticated} = useContext(Context);
   const [communityName, setCommunityName] = useState(<SmallerLoader/>);
   const [jobData, setJobData] = useState([]);
-  const {setIsAuthenticated} = useContext(Context);
+  const [memberCount, setMemberCount] = useState(<SmallerLoader/>);
 
   useEffect(() => {
     axios
@@ -22,6 +23,7 @@ const JobsAlert = () => {
         withCredentials: true,
       })
       .then((res) => {
+        setMemberCount(res.data.data.member_count)
         setCommunityName(res.data.data.name);
       })
       .catch((error) => {
@@ -52,7 +54,7 @@ const JobsAlert = () => {
           </div>
           <div className="right-group-text">
             <div className="right-group-top-heading">{communityName}</div>
-            <div className="right-group-sub-heading">77456 Members</div>
+            <div className="right-group-sub-heading">{memberCount} {memberCount > 1 ? "Members":"Member"}</div>
           </div>
         </div>
         <div className="right-group">

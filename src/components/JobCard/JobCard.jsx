@@ -2,11 +2,15 @@ import { toast } from "react-hot-toast";
 import "./JobCard.css";
 import { baseUrl } from "../..";
 import axios from "axios";
+import { useContext } from "react";
+import Context from "../../store/AuthContext";
 
 const JobCard = (props) => {
   const {company,role,salary,location,experience,jobId} = props;
+  const {user} = useContext(Context);
 
   const onApplyHandler = async() => {
+    console.log(user);
     try {
       const {data} = await axios.post(`${baseUrl}/v1/job/apply-job/${jobId}`,{}, {withCredentials: true})
       toast.success("Applied Successfully");  
@@ -14,6 +18,9 @@ const JobCard = (props) => {
       console.log(error.response.data.errors);
       toast.error(error.response.data.errors);
     }
+  }
+  const onViewCandidatesHandler = async() => {
+      console.log("View Candidates");
   }
 
   return (
@@ -27,7 +34,7 @@ const JobCard = (props) => {
         <div className="JobCard"><span className="job-content">Salary </span> {salary}</div>
         <div className="JobCard"><span className="job-content">Location </span> {location} </div>
         <div className="JobCard">More details ...</div>
-        <button className="btn-1 apply-button" onClick={onApplyHandler}>Apply</button>
+        <button className="btn-1 apply-button" onClick={user.role === "Applicant" ? onApplyHandler : onViewCandidatesHandler}>{user.role === "Applicant" ? "Apply" : "View Candidates"}</button>
       </div>
     </>
   );

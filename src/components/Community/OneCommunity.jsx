@@ -13,22 +13,17 @@ const OneCommunity = (props) => {
     navigate(`/community/${id}`)
   }
 
-  const joinCommunity = async () => {
+
+  const clicKJoinHandler = async() => {
     await axios
       .post(`${baseUrl}/v1/community/join-community/${id}`, {}, { withCredentials: true })
       .then((response) => {
-        toast.success("Joined community successfully");
+        toast.success(`${response.data.data.community} community joined`);
         navigate("/");
       })
       .catch((err) => {
         console.log(err);
       });
-  };
-
-  const clicKJoinHandler = () => {
-    {
-        joinCommunity();
-    }
 
   };
   
