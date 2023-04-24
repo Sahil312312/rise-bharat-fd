@@ -24,6 +24,7 @@ function App() {
   const {isAuthenticated,setIsAuthenticated,setUser,setMyCommunities,setLoading} = useContext(Context);
   
   useEffect(() => {
+    console.log("useEffect of App");
     setLoading(true);
     axios.get(`${baseUrl}/v1/user/me`,{
       withCredentials: true
@@ -33,28 +34,13 @@ function App() {
         setIsAuthenticated(true) 
       })
         .catch(err => {
+          console.log("Error of app");
         setUser({});
         setLoading(false);
         setIsAuthenticated(false);
     })
   },[]);
 
-  useEffect(() => {
-    setLoading(true);
-    axios.get(`${baseUrl}/v1/community/my-community`,{
-      withCredentials: true
-    }).then(res => {
-        setLoading(false);
-        setMyCommunities(res.data.data);
-      })
-        .catch(err => {
-          setLoading(false);
-          setIsAuthenticated(false);
-          console.error(err.response.data.errors);
-    })
-  }, [])
-
- 
 
   return (
     <>

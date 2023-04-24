@@ -30,6 +30,10 @@ const JobCard = (props) => {
         console.log(error.response.data.errors);
       }
   }
+  const moreDetailsHandler = () => {
+    // navigate("/job-details",{state:{jobId:jobId}});
+    console.log("More Details");
+  }
 
   return (
     <>
@@ -41,7 +45,7 @@ const JobCard = (props) => {
         <div className="JobCard"><span className="job-content">Experience </span> {experience} </div>
         <div className="JobCard"><span className="job-content">Salary </span> {salary}</div>
         <div className="JobCard"><span className="job-content">Location </span> {location} </div>
-        <div className="JobCard">More details ...</div>
+        <div className="JobCard" onClick={moreDetailsHandler}>More details ...</div>
         <button className="btn-1 apply-button" onClick={user.role === "Applicant" ? onApplyHandler : onViewCandidatesHandler}>{user.role === "Applicant" ? "Apply" : "View Candidates"}</button>
       </div>
     </>
