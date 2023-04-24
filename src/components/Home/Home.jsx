@@ -13,37 +13,41 @@ const Home = () => {
   // const [loading,setLoading] = useState(false);
   let navigate = useNavigate();
 
-  
+  useEffect(() => {
+    (async () => {
+
+      try {
+       const {data} = await axios.get(`${baseUrl}/v1/user/me`,{
+          withCredentials: true
+        })
+        setUser(data.data);
+        setIsAuthenticated(true) 
+      } catch (error) {
+        setUser({});
+        setIsAuthenticated(false);
+      }
+    })();
+
+  },[]);
 
   useEffect(() => {
-    setLoading(true);
-    axios.get(`${baseUrl}/v1/community/my-community`,{
-      withCredentials: true
-    }).then(res => {
-      console.log("Recruiter");
-      setLoading(false);
-      setMyCommunities(res.data.data);
-    })
-    .catch(err => {
-      setLoading(false);
-      console.log(err.response.data.errors);
-    })
+
+    (async () => {
+
+      try {
+       const {data} =  await axios.get(`${baseUrl}/v1/community/my-community`,{
+          withCredentials: true
+        })
+        setLoading(false);
+      setMyCommunities(data.data);
+      } catch (error) {
+        setLoading(false);
+        console.log(error.response.data.errors);
+      }
+    })();
+
   },[])
 
-  useEffect(() => {
-    setLoading(true);
-    axios
-      .get(`${baseUrl}/v1/community/join-communities`, { withCredentials: true })
-      .then((response) => {
-        console.log("Applicant");
-        setMyCommunities(response.data.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.log(error);
-      });
-  },[])
 
   
   const logoutHandler = async () => {
@@ -52,6 +56,7 @@ const Home = () => {
         withCredentials: true,
       });
       toast.success("Logged out successfully");
+      setUser({});
       setIsAuthenticated(false);
     } catch (error) {
       setIsAuthenticated(true);
