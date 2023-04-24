@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { baseUrl } from "../../../index";
 import Context from "../../../store/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import {signupSchema} from "../../../assets/schemas/index"
 import Loader from "../../Loader/Loader";
@@ -97,6 +97,10 @@ const Signup = () => {
           Signup
         </button>
       </form>
+      <div className="signup">
+            <p className='signup-para'>Already have an account?</p>
+          <Link to="/login" className='signup-btn'>Login</Link>
+      </div>
     </>
   );
 };

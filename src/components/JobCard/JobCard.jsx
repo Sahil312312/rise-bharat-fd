@@ -4,10 +4,12 @@ import { baseUrl } from "../..";
 import axios from "axios";
 import { useContext } from "react";
 import Context from "../../store/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const JobCard = (props) => {
   const {company,role,salary,location,experience,jobId} = props;
   const {user} = useContext(Context);
+  const navigate = useNavigate();
 
   const onApplyHandler = async() => {
     console.log(user);
@@ -21,6 +23,12 @@ const JobCard = (props) => {
   }
   const onViewCandidatesHandler = async() => {
       console.log("View Candidates");
+      try {
+        const {data} = await axios.get(`${baseUrl}/v1/apply/${jobId}`, {withCredentials: true})
+        navigate("/view-candidates",{state:{candidatesApplied : data.data,JobDetail:data.job_detail}});
+      } catch (error) {
+        console.log(error.response.data.errors);
+      }
   }
 
   return (
