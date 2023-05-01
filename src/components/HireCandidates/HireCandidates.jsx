@@ -41,6 +41,7 @@ const HireCandidates = () => {
           <JobCard key={item._id} company={item.company} role={item.job_role}
           experience={item.experience} salary={item.salary} location={item.location}
           jobId={item._id}
+          
           />
         )
       }) :

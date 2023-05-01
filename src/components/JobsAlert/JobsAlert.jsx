@@ -45,6 +45,8 @@ const JobsAlert = () => {
       });
   }, []);
 
+  
+
   return (
     <>
       <div className="group-heading">
@@ -62,11 +64,16 @@ const JobsAlert = () => {
         </div>
       </div>
       <div className="job-alert">JobsAlert</div>
+
+      
+     
+
       {jobData.length > 0 ? jobData.map((item)=>{
         return (
           item.job && <JobCard key={item._id} company={item.job.company} role={item.job.job_role}
           experience={item.job.experience} salary={item.job.salary} location={item.job.location}
           jobId={item.job._id}
+          jobfullDetail={item.job}
           />
         )
       }) : <div className="no-job-alert">No Job Available</div>}
