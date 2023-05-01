@@ -20,3 +20,9 @@
     width: 100%;
     margin-top: 0;
 }
+
+.MoreDetails{
+    cursor: pointer;
+    color: rgb(21, 24, 173);
+    font-weight: 500;
+}

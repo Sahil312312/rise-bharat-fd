@@ -19,6 +19,7 @@ import Context from './store/AuthContext';
 import axios from 'axios';
 import { baseUrl } from '.';
 import NotFound from './components/NotFound/NotFound';
+import FullDetail from './components/FullDetail/FullDetail';
 
 function App() {
   const {isAuthenticated,setIsAuthenticated,setUser,setMyCommunities,setLoading} = useContext(Context);
@@ -52,6 +53,7 @@ function App() {
         <Route path="/create-community" element={isAuthenticated ? <CreateCommunity/> : <Login/>}/>
         <Route path="/all-communities" element={isAuthenticated ? <AllCommunities/> : <Login/>}/>
         <Route path="/community/:id" element={isAuthenticated ? <JobsAlert/> : <Login/>}/>
+        <Route path="/community/fulldetails/:id" element={isAuthenticated ? <FullDetail/> : <Login/>}/>
         <Route path="/hire-candidates" element={isAuthenticated ? <HireCandidates/> : <Login/>}/>
         <Route path="/hire-candidates-form" element={isAuthenticated ? <HireCandidatesForm/> : <Login/>}/>
         <Route path="/select-communities/:jobId" element={isAuthenticated ? <SelectCommunities/> : <Login/>}/>

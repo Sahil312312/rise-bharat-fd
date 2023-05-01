@@ -1,17 +1,28 @@
 import * as React from 'react';
+import './ThreeDotMenu.css'
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-
-
 import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
 import CloseIcon from "@mui/icons-material/Close";
+import {
+  EmailIcon,
+  EmailShareButton,
+  FacebookIcon,
+  FacebookShareButton,
+  FacebookShareCount,
+  LinkedinIcon,
+  LinkedinShareButton,
+  TelegramIcon,
+  TelegramShareButton,
+  WhatsappIcon,
+  WhatsappShareButton,
+} from "react-share";
 
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -56,9 +67,13 @@ BootstrapDialogTitle.propTypes = {
 const ITEM_HEIGHT = 48;
 
 export default function LongMenu() {
+  const shareUrl = window.location.href
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorE2, setAnchorE2] = React.useState(null);
   const [openModal, setOpenModal] = React.useState(false);
+  const [openModal2, setOpenModal2] = React.useState(false);
   const open = Boolean(anchorEl);
+  const open2 = Boolean(anchorE2);
   
 
   const handleClickOpenModal = () => { 
@@ -67,15 +82,25 @@ export default function LongMenu() {
   const handleCloseModal = () => {
     setOpenModal(false);
     setAnchorEl(null);
+  };
+
+  const handleClickOpenModal2 = () => { 
+    setOpenModal2(true);
+  };
+  const handleCloseModal2 = () => {
+    setOpenModal2(false);
+    setAnchorE2(null);
     
   };
 
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+    setAnchorE2(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+    setAnchorE2(null);
   };
   
 
@@ -96,8 +121,8 @@ export default function LongMenu() {
         MenuListProps={{
           'aria-labelledby': 'long-button',
         }}
-        anchorEl={anchorEl}
-        open={open}
+        anchorEl={anchorEl && anchorE2}
+        open={open && open2}
         onClose={handleClose}
         PaperProps={{
           style: {
@@ -129,12 +154,57 @@ export default function LongMenu() {
                   </button>
                 </div>
               </DialogContent>
-              <DialogActions></DialogActions>
             </BootstrapDialog>
 
         </MenuItem>
 
-        <MenuItem >Share</MenuItem>
+        <MenuItem onClick={handleClickOpenModal2}>
+
+         <div >Share</div>
+         <BootstrapDialog
+              onClose={handleCloseModal2}
+              aria-labelledby="customized-dialog-title2"
+              open={openModal2}
+            >
+              <BootstrapDialogTitle
+                id="customized-dialog-title2"
+                onClose={handleCloseModal2}
+              >
+                Share
+              </BootstrapDialogTitle>
+              <DialogContent>
+                <div style={{marginLeft:"20px"}}>
+                   <div className="share">
+                      <FacebookShareButton
+                        url={shareUrl}
+                        quote={"Apply Here!"}
+                        hashtag="#hiring #jobs #jobsearch #job #career #recruitment #hiringnow #jobhunt #jobseekers #careers #jobseeker #jobopening #jobseeking #jobfair #jobinterview #jobsearching #jobhunting #jobshiring #jobvacancy #jobposting #jobopportunity #jobhunters #jobsearchtips #jobsearchhelp #jobsearchingtips #jobsearchadvice #jobsearchstrategies #jobsearchcoach #jobsearchsupport #jobsearchmotivation #jobsearchingadvice #jobsearchinghelp #jobsearchingstrategies #jobsearchingcoach #jobsearchingsupport #jobsearchingmotivation #jobsearchingtipsandadvice #jobsearchingtipsforbeginners #jobsearchingtipsfornewgrads #jobsearchingtipsforstudents #jobsearchingtipsforintroverts #jobsearchingtipsfornewcomers #jobsearchingtipsforveterans #jobsearchingtipsforwomen #jobsearchingtipsforprofessionals #jobsearchingtipsforcollegegrads #jobsearchingtipsforrecentgrads #jobsearchingtipsfornewgraduates #jobsearchingtipsfornewcomers #jobsearchingtipsforveterans #jobsearchingtipsforwomen #jobsearchingtipsforprofessionals #jobsearchingtipsforcollegegrads #jobsearchingtipsforrecentgrads #jobsearchingtipsfornewgraduates"
+                      >
+                        <FacebookIcon size={32} round />
+                      </FacebookShareButton>
+                      <WhatsappShareButton
+                        url={shareUrl}
+                        title={"Join this link to"}
+                        separator={" Apply Now: "}
+                      >
+                        <WhatsappIcon size={33} round />
+                      </WhatsappShareButton>
+                      <TelegramShareButton url={shareUrl} title={"Join this link to apply"}>
+                        <TelegramIcon size={33} round />
+                      </TelegramShareButton>
+                      <EmailShareButton
+                        url={shareUrl}
+                        subject={"Apply to this job"}
+                        body={"Join this link to apply for the job via RiseBharat"}
+                        separator = " Apply Now: "
+                      >
+                        <EmailIcon size={33} round />
+                      </EmailShareButton>
+                    </div>
+                </div>
+              </DialogContent>
+            </BootstrapDialog>
+        </MenuItem>
       </Menu>
     </div>
   );
