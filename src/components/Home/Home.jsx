@@ -7,7 +7,7 @@ import Context from "../../store/AuthContext";
 import { toast } from "react-hot-toast";
 import OneCommunity from "../Community/OneCommunity";
 import Loader from "../Loader/Loader";
-
+import logo from '../../assets/logo.png'
 
 const Home = () => {
   const {
@@ -19,7 +19,6 @@ const Home = () => {
     setLoading,
     loading,
   } = useContext(Context);
-  // const [loading,setLoading] = useState(false);
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -99,7 +98,9 @@ const Home = () => {
     <Loader />
   ) : (
     <>
-      <div className="top-heading">Rise Communities</div>
+      <div className="top-heading">Rise Communities
+        <div className="group-img"><img className="logo-img" src={logo} alt=""/></div>
+      </div>
       {mycommunities.length > 0 ? (
         mycommunities.map((community) => {
           return (

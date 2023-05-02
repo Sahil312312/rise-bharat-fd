@@ -98,8 +98,9 @@ const Signup = () => {
         </button>
       </form>
       <div className="signup">
-            <p className='signup-para'>Already have an account?</p>
-          <Link to="/login" className='signup-btn'>Login</Link>
+            <p className='signup-para'>Already have an account?
+              <Link to="/login" className='signup-btn'><u>Login</u></Link>
+            </p>
       </div>
     </>
   );

@@ -16,6 +16,7 @@ const initialValues = {
 }
 
 const Login = () => {
+  const { isAuthenticated, setIsAuthenticated } = useContext(Context);
   const {loading,setLoading} = useContext(Context)
 
   const {values , errors , touched, handleChange,handleSubmit,handleBlur} = useFormik({
@@ -46,7 +47,6 @@ const Login = () => {
     const [number, setNumber] = useState('');
     const [password, setPassword] = useState('');
 
-    const { isAuthenticated, setIsAuthenticated } = useContext(Context);
 
    
     if(isAuthenticated){
@@ -66,8 +66,9 @@ const Login = () => {
               <button type="submit" className="btn-1"> Login </button>
           </form>
           <div className="signup">
-            <p className='signup-para'>Don't have an account?</p>
-          <Link to="/register" className='signup-btn'>Signup</Link>
+            <p className='signup-para'>Don't have an account?
+              <Link to="/register" className='signup-btn'><u>Signup</u></Link>
+            </p>
           </div>
         </>
         )}

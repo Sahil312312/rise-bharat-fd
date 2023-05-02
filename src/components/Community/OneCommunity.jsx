@@ -1,5 +1,4 @@
 import './OneCommunity.css'
-import logo from '../../assets/logo.png'
 import { useNavigate } from 'react-router-dom';
 import { baseUrl } from '../..';
 import axios from 'axios';
@@ -30,7 +29,6 @@ const OneCommunity = (props) => {
   return (
     <>
         <div className="community"  >
-            <div className="group-img"><img src={logo} alt="" /></div>
             <div className="group-details">
                 <div className="group-name">{props?.name}</div>
                 {props.link === "View -->" ? (<div className="group-link" onClick={clickViewHandler}>{props.link}</div>) : 
