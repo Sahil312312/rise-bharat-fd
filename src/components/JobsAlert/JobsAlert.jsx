@@ -12,10 +12,11 @@ import SmallerLoader from "../Loader/SmallerLoader";
 
 const JobsAlert = () => {
   const { id } = useParams();
-  const {setIsAuthenticated} = useContext(Context);
+  const {isAuthenticated,setIsAuthenticated,setUser,setMyCommunities,setLoading} = useContext(Context);
   const [communityName, setCommunityName] = useState(<SmallerLoader/>);
   const [jobData, setJobData] = useState([]);
   const [memberCount, setMemberCount] = useState(<SmallerLoader/>);
+
 
   useEffect(() => {
     axios
@@ -52,7 +53,7 @@ const JobsAlert = () => {
       <div className="group-heading">
         <div className="left-group">
           <div className="left-group-img">
-            <img src={logo} alt="group-logo" height={50} />
+            {/* <img src={logo} alt="group-logo" height={50} /> */}
           </div>
           <div className="right-group-text">
             <div className="right-group-top-heading">{communityName}</div>
@@ -73,7 +74,7 @@ const JobsAlert = () => {
           item.job && <JobCard key={item._id} company={item.job.company} role={item.job.job_role}
           experience={item.job.experience} salary={item.job.salary} location={item.job.location}
           jobId={item.job._id}
-          jobfullDetail={item.job}
+          jobfullDetail={item.job} communityID = {id}
           />
         )
       }) : <div className="no-job-alert">No Job Available</div>}

@@ -7,7 +7,7 @@ import Context from "../../store/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const JobCard = (props) => {
-  const {company,role,salary,location,experience,jobId,jobfullDetail} = props;
+  const {company,role,salary,location,experience,jobId,jobfullDetail,communityID} = props;
   const {user} = useContext(Context);
   const navigate = useNavigate();
 
@@ -31,8 +31,7 @@ const JobCard = (props) => {
       }
   }
   const moreDetailsHandler = () => {
-    navigate(`/community/fulldetails/${jobId}`,{state:{fullDetail:jobfullDetail}});
-    console.log(jobfullDetail);
+    navigate(`/community/fulldetails/${jobId}`,{state:{fullDetail:jobfullDetail,jobId:jobId,communityID:communityID}});
   }
 
   return (

@@ -68,6 +68,7 @@ textarea{
   font-weight: 600;
   font-size: 24px;
   line-height: 120%;
+  margin-left: 0.5rem;
   /* identical to box height, or 29px */
 
   display: flex;
@@ -128,4 +129,10 @@ textarea{
   font-weight: 200;
   text-align: center;
   margin: 60% auto;
+}
+
+.logo-img{
+  display: flex;
+  text-align: center;
+  height: 25px;
 }
