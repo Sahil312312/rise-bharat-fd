@@ -60,7 +60,7 @@ const SelectCommunities = () => {
   return (
     loading ? <Loader/> :
     <>
-      <div className="top-heading">SelectCommunities</div>
+      <div className="top-heading select-communitites">Select Communities</div>
 
       <div className="post-job">
         {mycommunities.length > 0 ? mycommunities.map((community) => {

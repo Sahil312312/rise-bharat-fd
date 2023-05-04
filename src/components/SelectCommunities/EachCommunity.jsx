@@ -15,9 +15,9 @@ const EachCommunity = (props) => {
   return (
     <>
       <div className="EachCommunity" >
-        <div className="community-left">
+        {/* <div className="community-left">
           <img src={logo} alt="logo" />
-        </div>
+        </div> */}
         <div className="community-center">{name}</div>
         <div className="community-right">
           <Checkbox onClick={getCommunityIdHandler} icon={<RadioButtonUncheckedIcon />} checkedIcon={<CheckCircleIcon sx={{color: "#FB823E","&.Mui-checked": { color: "#FB823E",  },}}/>}/>
