@@ -16,7 +16,7 @@ export default function AccountMenu(props) {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
-    
+    setAnchorEl(null);
   };
   return (
     <>
