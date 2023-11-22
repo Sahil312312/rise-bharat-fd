@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import { AuthContext } from "./store/AuthContext";
 
-export const baseUrl = "http://localhost:8000/api";
+export const baseUrl = "https://rise-bharat.onrender.com/api";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
